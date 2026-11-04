@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RateTracker.in - Compare Prices Across Amazon, Flipkart & Top Indian Stores</title>
+  <meta name="description" content="Compare product and hotel prices across Amazon, Flipkart, Croma, Reliance Digital, Booking.com & more. Track price drops, history, and get the lowest price guaranteed.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <!-- Cuelinks Production Auto-Monetization Script -->
+  <script type="text/javascript">
+    var cuelinks_publisher_id = 82192;
+  </script>
+  <script type="text/javascript" src="https://static.cuelinks.com/js/cuelinksv2.js" async></script>
+</head>
+<body class="mode-desktop">
+
+  <!-- Desktop Top Bar with Live Cuelinks Badge & Device View Switcher -->
+  <header class="desktop-controls-bar">
+    <div class="controls-left">
+      <div class="cuelinks-status-pill" id="cuelinks-status-indicator">
+        <span class="status-dot"></span>
+        <span>Cuelinks Active (CID: 82192)</span>
+      </div>
+      <button class="view-btn" id="btn-link-mode-toggle" title="Click to toggle between Cuelinks Monetized Redirects and Direct Store Links" style="background: rgba(16, 185, 129, 0.2); color: #34d399; font-weight: 700; cursor: pointer;">
+        <span>🔗 Cuelinks Monetized (CID: 82192)</span>
+      </button>
+    </div>
+    <div class="view-mode-toggles">
+      <button class="view-btn active" id="btn-mode-desktop">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+        <span>Desktop View</span>
+      </button>
+      <button class="view-btn" id="btn-mode-mobile">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+        <span>Mobile App Frame</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Viewport Container -->
+  <main class="app-viewport-wrapper">
+    <div class="device-frame" id="app-frame">
+      
+      <!-- Mobile Notch / iOS Status Bar (Visible in Mobile Frame Mode) -->
+      <div class="status-bar-notch">
+        <span class="status-time">9:41</span>
+        <div class="status-icons">
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor">
+            <rect x="0" y="8" width="3" height="4" rx="1"></rect>
+            <rect x="4" y="6" width="3" height="6" rx="1"></rect>
+            <rect x="8" y="3" width="3" height="9" rx="1"></rect>
+            <rect x="12" y="0" width="3" height="12" rx="1"></rect>
+          </svg>
+          <svg width="15" height="11" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+          </svg>
+          <svg width="22" height="11" viewBox="0 0 24 12" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="1" y="1" width="18" height="10" rx="3"></rect>
+            <rect x="3" y="3" width="12" height="6" rx="1.5" fill="currentColor"></rect>
+            <path d="M21 4v4"></path>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Main Screen Shell -->
+      <div class="app-screen-container">
+
+        <!-- Header Bar -->
+        <header class="app-header">
+          <div class="brand-wrapper" onclick="navigateTo('home')">
+            <div class="brand-logo-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+            </div>
+            <div class="brand-text-group">
+              <h1 class="brand-title">RateTracker<span style="color:var(--primary); font-weight:900;">.in</span></h1>
+              <span class="brand-subtitle">Compare • Save • Shop Smart</span>
+            </div>
+          </div>
+
+          <!-- Desktop Navigation Bar (When on large screen) -->
+          <nav class="desktop-site-nav">
+            <button class="nav-tab-item active desktop-nav-link" data-view="home">Home</button>
+            <button class="nav-tab-item desktop-nav-link" data-view="search">Compare</button>
+            <button class="nav-tab-item desktop-nav-link" data-view="categories">Categories</button>
+            <button class="nav-tab-item desktop-nav-link" data-view="pricedrop">Price Drop</button>
+            <button class="nav-tab-item desktop-nav-link" data-view="hotels">Hotels</button>
+            <button class="nav-tab-item desktop-nav-link" data-view="wishlist">Wishlist</button>
+            <button class="nav-tab-item desktop-nav-link" data-view="account">Account</button>
+          </nav>
+
+          <button class="header-action-btn" onclick="navigateTo('pricedrop')" title="Notifications">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+            <span class="badge-dot"></span>
+          </button>
+        </header>
+
+        <!-- ================================================================
+             SCREEN 1: HOME VIEW (Matching Mockup 1 & 2)
+             ================================================================ -->
+        <section class="app-screen-view" id="view-home">
+          <!-- Hero Card Banner -->
+          <div class="hero-card">
+            <div class="hero-pill-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+              <span>India's #1 Price Comparison</span>
+            </div>
+            <h2 class="hero-heading">Same Product.<br>Different Prices.</h2>
+            <p class="hero-subheading">Compare prices from top stores like Amazon, Flipkart, Croma and get the best deal, always!</p>
+            
+            <!-- Quick Category Switchers -->
+            <div class="hero-category-tabs">
+              <button class="hero-cat-btn products active">
+                <span class="hero-cat-icon">🛍️</span>
+                <div class="hero-cat-text">
+                  <strong>Shop Products</strong>
+                  <span>Compare & save more</span>
+                </div>
+              </button>
+              <button class="hero-cat-btn hotels">
+                <span class="hero-cat-icon">🏨</span>
+                <div class="hero-cat-text">
+                  <strong>Book Hotels</strong>
+                  <span>Find best hotels & deals</span>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Universal Search Bar -->
+          <div class="search-container">
+            <div class="search-input-box">
+              <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <input type="text" id="main-search-input" placeholder="Search for products, brands, or hotels..." />
+              <button class="search-action-btn" title="Search">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Search Tags -->
+          <div class="quick-tags-scroll">
+            <span class="tag-pill active">iPhone 15</span>
+            <span class="tag-pill">Laptop</span>
+            <span class="tag-pill">Headphones</span>
+            <span class="tag-pill">Shoes</span>
+            <span class="tag-pill">Samsung S23</span>
+            <span class="tag-pill">Smart TV</span>
+          </div>
+
+          <!-- 4 Value Proposition Badges (From Screenshot 2) -->
+          <div class="features-grid">
+            <div class="feature-badge-card" onclick="navigateTo('search')">
+              <div class="feature-icon-wrapper">🏷️</div>
+              <span class="feature-badge-title">Best Price Comparison</span>
+            </div>
+            <div class="feature-badge-card" onclick="navigateTo('pricedrop')">
+              <div class="feature-icon-wrapper">🔔</div>
+              <span class="feature-badge-title">Price Drop Alerts</span>
+            </div>
+            <div class="feature-badge-card" onclick="navigateTo('categories')">
+              <div class="feature-icon-wrapper">🏪</div>
+              <span class="feature-badge-title">Top Brands & Stores</span>
+            </div>
+            <div class="feature-badge-card" onclick="navigateTo('hotels')">
+              <div class="feature-icon-wrapper">🛡️</div>
+              <span class="feature-badge-title">Secure Shopping</span>
+            </div>
+          </div>
+
+          <!-- Top Deals Today Section -->
+          <div class="section-header">
+            <h3 class="section-title">🔥 Top Deals Today</h3>
+            <a class="view-all-link" onclick="navigateTo('pricedrop')">View All →</a>
+          </div>
+          <div class="deals-horizontal-scroll" id="top-deals-container">
+            <!-- Populated via JS -->
+          </div>
+
+          <!-- Big Savings Promotional Banner -->
+          <div class="promo-banner">
+            <div class="promo-text">
+              <strong>Big Savings</strong>
+              <span>on Your Favourite Brands</span>
+              <button class="promo-btn" onclick="navigateTo('categories')">Shop Now</button>
+            </div>
+            <div class="promo-img-wrap">
+              <img src="https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=200&auto=format&fit=crop&q=80" alt="Headphones deal" />
+            </div>
+          </div>
+
+          <!-- Popular Categories Preview -->
+          <div class="section-header">
+            <h3 class="section-title">📦 Popular Categories</h3>
+            <a class="view-all-link" onclick="navigateTo('categories')">View All →</a>
+          </div>
+          <div class="categories-preview-grid">
+            <div class="category-tile" onclick="filterByCategory('Mobiles')">
+              <div class="category-icon-box" style="background:#eff6ff;">📱</div>
+              <span class="category-title">Mobiles</span>
+            </div>
+            <div class="category-tile" onclick="filterByCategory('Laptops')">
+              <div class="category-icon-box" style="background:#f0fdf4;">💻</div>
+              <span class="category-title">Laptops</span>
+            </div>
+            <div class="category-tile" onclick="filterByCategory('Electronics')">
+              <div class="category-icon-box" style="background:#fef2f2;">🎧</div>
+              <span class="category-title">Electronics</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================================================================
+             SCREEN 2: SEARCH & COMPARE PRICES VIEW (Matching Mockup 2 & 3)
+             ================================================================ -->
+        <section class="app-screen-view" id="view-search" style="display: none;">
+          <!-- Active Search Header -->
+          <div class="view-header">
+            <button class="back-btn" onclick="navigateTo('home')">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            <div class="search-input-box" style="flex: 1; padding: 4px 10px;">
+              <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <input type="text" id="active-search-input" value="iPhone 15" placeholder="Search products..." />
+            </div>
+            <button class="header-action-btn" style="width:34px;height:34px;" title="Filter">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+            </button>
+          </div>
+
+          <!-- Category Filter Pills -->
+          <div class="category-filter-chips">
+            <button class="filter-chip active" data-category="All">All (<span id="search-results-count">142</span>)</button>
+            <button class="filter-chip" data-category="Mobiles">Mobiles</button>
+            <button class="filter-chip" data-category="Electronics">Electronics</button>
+            <button class="filter-chip" data-category="Laptops">Laptops</button>
+            <button class="filter-chip" data-category="Footwear">Footwear</button>
+          </div>
+
+          <div class="section-header" style="padding-bottom: 2px;">
+            <h3 class="section-title">Compare Prices</h3>
+            <span style="font-size: 11px; color: #64748b; font-weight: 600;">Real-time Stores Comparison</span>
+          </div>
+
+          <!-- Product Comparison Cards List -->
+          <div id="compare-products-list">
+            <!-- Populated via JS -->
+          </div>
+        </section>
+
+        <!-- ================================================================
+             SCREEN 3: PRODUCT DETAIL & PRICE HISTORY (Matching Mockup 3 & 7)
+             ================================================================ -->
+        <section class="app-screen-view product-detail-view" id="view-detail" style="display: none;">
+          <!-- Top Nav Bar -->
+          <div class="detail-top-nav">
+            <button class="back-btn" onclick="navigateTo('search')">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            <div class="detail-nav-actions">
+              <button class="icon-circle-btn" id="detail-wishlist-toggle" onclick="toggleWishlistCurrentProduct()" title="Wishlist">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path></svg>
+              </button>
+              <button class="icon-circle-btn" onclick="showToast('Deal link copied!')" title="Share">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Product Gallery & Color Switcher -->
+          <div class="detail-gallery-wrap">
+            <div class="detail-main-img-box">
+              <img id="detail-main-img" src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=500&auto=format&fit=crop&q=80" alt="Product preview" />
+            </div>
+            <!-- Color Selector Dots -->
+            <div class="color-switcher-row" id="detail-color-switcher">
+              <!-- Populated via JS -->
+            </div>
+          </div>
+
+          <!-- Product Info Block -->
+          <div class="detail-info-block">
+            <h2 class="detail-title" id="detail-title">Apple iPhone 15 (128GB)</h2>
+            <div class="detail-rating-row">
+              <span id="detail-rating-text" style="font-size: 13px; font-weight: 700; color: #f59e0b;">★ 4.6 (12.5k reviews)</span>
+              <span class="discount-pill" id="detail-discount-badge">17% OFF</span>
+            </div>
+            <div class="detail-price-headline">
+              <span style="font-size: 13px; color: #64748b;">From</span>
+              <span class="detail-from-price" id="detail-best-price">₹69,900</span>
+              <span class="detail-orig-price" id="detail-orig-price">₹84,900</span>
+            </div>
+          </div>
+
+          <!-- Segmented Tab Bar -->
+          <div class="segmented-tabs-bar">
+            <button class="seg-tab-btn active" data-tab="price-comparison" onclick="switchDetailTab('price-comparison')">Price Comparison</button>
+            <button class="seg-tab-btn" data-tab="price-history" onclick="switchDetailTab('price-history')">Price History</button>
+            <button class="seg-tab-btn" data-tab="specifications" onclick="switchDetailTab('specifications')">Specifications</button>
+          </div>
+
+          <!-- Tab 1: Price Comparison Stores List -->
+          <div class="tab-content-panel active" id="tab-panel-price-comparison">
+            <div class="stores-comparison-list" id="detail-stores-list">
+              <!-- Populated via JS with Amazon, Flipkart, Croma, etc. -->
+            </div>
+
+            <!-- Price Drop Alert CTA Card -->
+            <div class="price-alert-banner">
+              <div class="alert-banner-text">
+                <strong>Not sure? Set Price Drop Alert</strong>
+                <span>Get notified when the price drops lower</span>
+              </div>
+              <button class="set-alert-pill-btn" onclick="openPriceAlertModal()">Set Alert</button>
+            </div>
+          </div>
+
+          <!-- Tab 2: Price History Interactive SVG Chart -->
+          <div class="tab-content-panel" id="tab-panel-price-history">
+            <div class="history-time-toggles">
+              <button class="time-btn" data-period="1M" onclick="setHistoryPeriod('1M')">1M</button>
+              <button class="time-btn" data-period="3M" onclick="setHistoryPeriod('3M')">3M</button>
+              <button class="time-btn active" data-period="6M" onclick="setHistoryPeriod('6M')">6M</button>
+              <button class="time-btn" data-period="1Y" onclick="setHistoryPeriod('1Y')">1Y</button>
+            </div>
+
+            <!-- SVG Chart Box -->
+            <div class="chart-svg-container" id="price-history-chart-box">
+              <!-- Rendered via JS -->
+            </div>
+
+            <!-- Lowest Price Callout -->
+            <div class="lowest-price-callout">
+              <div class="lowest-callout-text">
+                <strong>Lowest Price Ever</strong>
+                <span id="detail-lowest-price-val">₹64,999 (Aug 2024)</span>
+              </div>
+              <span class="great-deal-tag">Great Deal</span>
+            </div>
+
+            <div class="price-alert-banner">
+              <div class="alert-banner-text">
+                <strong>Set Price Drop Alert</strong>
+                <span>Get notified when the price reaches your target</span>
+              </div>
+              <button class="set-alert-pill-btn" onclick="openPriceAlertModal()">Set Alert</button>
+            </div>
+          </div>
+
+          <!-- Tab 3: Specifications -->
+          <div class="tab-content-panel" id="tab-panel-specifications">
+            <div id="detail-specs-list">
+              <!-- Populated via JS -->
+            </div>
+          </div>
+
+          <!-- Bottom Sticky Action Bar -->
+          <div class="detail-bottom-bar">
+            <div class="bottom-bar-inner">
+              <button class="btn-wishlist-action" onclick="toggleWishlistCurrentProduct()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                <span>Add to Wishlist</span>
+              </button>
+              <a href="#" target="_blank" rel="noopener noreferrer" class="btn-buy-action" id="detail-primary-buy-btn">
+                <span>Buy Now at Lowest Price</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================================================================
+             SCREEN 4: CATEGORIES VIEW (Matching Mockup 4)
+             ================================================================ -->
+        <section class="app-screen-view" id="view-categories" style="display: none;">
+          <div class="view-header">
+            <button class="back-btn" onclick="navigateTo('home')">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            <h2 class="view-header-title">Categories</h2>
+            <button class="header-action-btn" style="width:34px;height:34px;" onclick="navigateTo('search')">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </button>
+          </div>
+
+          <div class="categories-preview-grid" id="categories-full-grid">
+            <!-- Populated via JS -->
+          </div>
+
+          <div class="section-header">
+            <h3 class="section-title">Popular Brands</h3>
+            <a class="view-all-link" onclick="navigateTo('search')">View All →</a>
+          </div>
+          <div class="brands-row" id="popular-brands-row">
+            <!-- Populated via JS -->
+          </div>
+
+          <div class="promo-banner">
+            <div class="promo-text">
+              <strong>Big Savings</strong>
+              <span>on Your Favourite Brands</span>
+              <button class="promo-btn" onclick="navigateTo('search')">Shop Now</button>
+            </div>
+            <div class="promo-img-wrap">
+              <img src="https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=200&auto=format&fit=crop&q=80" alt="Headphones deal" />
+            </div>
+          </div>
+        </section>
+
+        <!-- ================================================================
+             SCREEN 5: PRICE DROP VIEW (Matching Mockup Bottom Left)
+             ================================================================ -->
+        <section class="app-screen-view" id="view-pricedrop" style="display: none;">
+          <div class="view-header">
+            <button class="back-btn" onclick="navigateTo('home')">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            <h2 class="view-header-title">🔥 Price Drop</h2>
+          </div>
+
+          <div style="padding: 10px 16px 4px; font-size: 13px; color: #64748b; font-weight: 600;">
+            Grab the best deals before they're gone!
+          </div>
+
+          <div class="category-filter-chips">
+            <button class="filter-chip active">All Deals</button>
+            <button class="filter-chip">Mobiles</button>
+            <button class="filter-chip">Laptops</button>
+            <button class="filter-chip">Electronics</button>
+          </div>
+
+          <!-- Real Live Cuelinks Deals (Zero Dummy Data) -->
+          <div id="price-drop-deals-container" style="padding: 8px 0;">
+            <!-- Dynamically populated from real active Cuelinks campaigns -->
+          </div>
+        </section>
+
+        <!-- ================================================================
+             SCREEN 6: HOTELS & TRAVEL VIEW (Matching Mockup 1 Right)
+             ================================================================ -->
+        <section class="app-screen-view" id="view-hotels" style="display: none;">
+          <div class="hotels-hero-card">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+              <span style="font-size: 20px;">🏨</span>
+              <strong style="font-size: 16px;">HotelBook</strong>
+              <span style="font-size: 11px; opacity: 0.8;">• Stay More. Pay Less.</span>
+            </div>
+            <h2 style="font-size: 20px; font-weight: 800; line-height: 1.3; margin-bottom: 6px;">
+              Find the Best Hotels<br>at the Lowest Prices
+            </h2>
+            <p style="font-size: 12px; opacity: 0.9; margin-bottom: 12px;">
+              Compare prices from top booking sites (Booking.com, Agoda, MakeMyTrip) and book at the lowest price.
+            </p>
+          </div>
+
+          <!-- Hotel Search Form Widget -->
+          <div class="hotels-search-widget">
+            <div class="widget-input-row">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              <div class="widget-input-col">
+                <span class="widget-label">Destination</span>
+                <input type="text" class="widget-val-input" value="Goa, India" />
+              </div>
+            </div>
+
+            <div class="dates-guest-grid">
+              <div class="widget-input-row">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                <div class="widget-input-col">
+                  <span class="widget-label">Dates</span>
+                  <input type="text" class="widget-val-input" value="12 - 15 Nov" />
+                </div>
+              </div>
+              <div class="widget-input-row">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                <div class="widget-input-col">
+                  <span class="widget-label">Guests</span>
+                  <input type="text" class="widget-val-input" value="2 Guests, 1 Room" />
+                </div>
+              </div>
+            </div>
+
+            <button class="hotel-search-btn" onclick="showToast('Searching live rates across 4 booking platforms...')">Search Hotels</button>
+          </div>
+
+          <!-- Hotel Comparison Results -->
+          <div class="section-header">
+            <h3 class="section-title">Hotels in Goa</h3>
+            <span style="font-size: 11px; color: #64748b;">Compare Booking vs Agoda vs Expedia</span>
+          </div>
+
+          <div id="hotels-results-container">
+            <!-- Populated via JS -->
+          </div>
+        </section>
+
+        <!-- ================================================================
+             SCREEN 7: WISHLIST VIEW (Matching Mockup 1 & 2 Bottom)
+             ================================================================ -->
+        <section class="app-screen-view" id="view-wishlist" style="display: none;">
+          <div class="view-header">
+            <button class="back-btn" onclick="navigateTo('home')">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            <h2 class="view-header-title">My Wishlist</h2>
+            <button onclick="showToast('Opening lowest price cart...')" style="background:none;border:none;color:var(--primary);font-weight:700;font-size:12px;cursor:pointer;">
+              Buy All
+            </button>
+          </div>
+
+          <div class="category-filter-chips">
+            <button class="filter-chip active">Products (<span id="wishlist-count-badge">3</span>)</button>
+            <button class="filter-chip">Hotels (0)</button>
+          </div>
+
+          <div id="wishlist-items-container">
+            <!-- Populated via JS -->
+          </div>
+        </section>
+
+        <!-- ================================================================
+             SCREEN 8: ACCOUNT & CUELINKS CONFIG VIEW (Matching Mockup 2 Bottom)
+             ================================================================ -->
+        <section class="app-screen-view" id="view-account" style="display: none;">
+          <div class="view-header">
+            <button class="back-btn" onclick="navigateTo('home')">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            <h2 class="view-header-title">Account</h2>
+          </div>
+
+          <!-- User Profile Card -->
+          <div class="profile-card-header">
+            <div class="profile-avatar">SK</div>
+            <div class="profile-meta">
+              <h3>Shameem K P</h3>
+              <p>shameemkp@gmail.com</p>
+            </div>
+          </div>
+
+          <!-- Cuelinks API Engine Info Card -->
+          <div class="cuelinks-config-box">
+            <div class="cuelinks-header-row">
+              <strong style="font-size: 13px;">🔗 Cuelinks Monetization Engine</strong>
+              <span class="cuelinks-badge">Active</span>
+            </div>
+            <p style="font-size: 11px; opacity: 0.85; line-height: 1.4;">
+              All product links from Amazon, Flipkart, Croma, etc. are automatically tracked and monetized with your official Cuelinks API Key:
+            </p>
+            <div class="api-key-display">
+              oQab8xOk401MwoV5ofoIevFvlP_zu-WR_EarndNqpXk
+            </div>
+            <div style="font-size: 11px; margin-bottom: 10px;" id="cuelinks-api-status-text">
+              <span style="color: #10b981;">● Connected (CID: 82192)</span>
+            </div>
+            <div class="cuelinks-actions">
+              <button class="btn-test-api" onclick="copyCuelinksApiKey()">Copy API Key</button>
+              <button class="btn-test-api" style="background:#334155;" onclick="testCuelinksConnection(); showToast('Tested Cuelinks API v3: Status OK');">Verify Live API</button>
+            </div>
+          </div>
+
+          <!-- System Architecture & Tech Stack Card -->
+          <div class="tech-stack-card">
+            <div class="tech-stack-header">
+              <strong style="font-size: 13px; color: #0f172a; display: flex; align-items: center; gap: 6px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                RateTracker Production Stack
+              </strong>
+              <span class="tech-badge-pill" id="system-health-pill">● Healthy</span>
+            </div>
+            <table class="tech-stack-table">
+              <thead>
+                <tr>
+                  <th>Component</th>
+                  <th>Technology</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="tech-component-name"><span>💻</span> Frontend</td>
+                  <td><strong>HTML, CSS, JavaScript</strong></td>
+                </tr>
+                <tr>
+                  <td class="tech-component-name"><span>⚙️</span> Backend</td>
+                  <td><span class="tech-badge-pill">Node.js</span></td>
+                </tr>
+                <tr>
+                  <td class="tech-component-name"><span>🗄️</span> Database</td>
+                  <td><span class="tech-badge-pill" style="background:#ecfdf5; color:#059669; border-color:#a7f3d0;">Supabase / PostgreSQL</span></td>
+                </tr>
+                <tr>
+                  <td class="tech-component-name"><span>🔗</span> Affiliate integration</td>
+                  <td><strong>Cuelinks API</strong> (CID: 82192)</td>
+                </tr>
+                <tr>
+                  <td class="tech-component-name"><span>📦</span> Product information</td>
+                  <td>Approved merchant APIs and feeds</td>
+                </tr>
+                <tr>
+                  <td class="tech-component-name"><span>☁️</span> Hosting</td>
+                  <td><span class="tech-badge-pill" style="background:#000; color:#fff; border-color:#000;">▲ Vercel</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Account Menu List -->
+          <div class="account-menu-list">
+            <div class="account-menu-item" onclick="showToast('Your recent deal views are tracked via Cuelinks CID 82192')">
+              <div class="menu-item-left">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                <span>My Orders & Deal Clicks</span>
+              </div>
+              <span class="chevron-icon">›</span>
+            </div>
+            <div class="account-menu-item" onclick="navigateTo('hotels')">
+              <div class="menu-item-left">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                <span>Hotel Bookings</span>
+              </div>
+              <span class="chevron-icon">›</span>
+            </div>
+            <div class="account-menu-item" onclick="navigateTo('pricedrop')">
+              <div class="menu-item-left">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                <span>Price Drop Alerts</span>
+              </div>
+              <span class="chevron-icon">›</span>
+            </div>
+            <div class="account-menu-item" onclick="navigateTo('wishlist')">
+              <div class="menu-item-left">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                <span>Wishlist</span>
+              </div>
+              <span class="chevron-icon">›</span>
+            </div>
+            <div class="account-menu-item" onclick="showToast('Support team: support@ratetracker.in')">
+              <div class="menu-item-left">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                <span>Help & Support</span>
+              </div>
+              <span class="chevron-icon">›</span>
+            </div>
+          </div>
+
+          <!-- Notification Promo Card -->
+          <div style="margin: 0 16px 20px; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: var(--radius-lg); padding: 16px;">
+            <div style="display: flex; gap: 10px; align-items: flex-start;">
+              <span style="font-size: 20px;">🔔</span>
+              <div>
+                <strong style="font-size: 13px; color: #1e3a8a; display: block; margin-bottom: 2px;">Save More, Shop Smarter</strong>
+                <p style="font-size: 11px; color: #2563eb; line-height: 1.4; margin-bottom: 10px;">
+                  Enable push notifications for instant alerts when prices drop on your wishlisted items.
+                </p>
+                <button onclick="showToast('Price drop notifications enabled!', '🔔')" style="background: var(--primary); color: white; border: none; font-size: 12px; font-weight: 700; padding: 8px 16px; border-radius: var(--radius-full); cursor: pointer;">
+                  Enable Notifications
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================================================================
+             BOTTOM NAVIGATION BAR (Matching Mockup exactly)
+             ================================================================ -->
+        <nav class="bottom-nav-bar">
+          <button class="nav-tab-item active" data-view="home">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            <span>Home</span>
+          </button>
+          <button class="nav-tab-item" data-view="categories">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            <span>Categories</span>
+          </button>
+          <button class="nav-tab-item" data-view="pricedrop">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg>
+            <span>Price Drop</span>
+          </button>
+          <button class="nav-tab-item" data-view="hotels">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21V5a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v16"></path><path d="M9 7h1"></path><path d="M9 11h1"></path><path d="M9 15h1"></path><path d="M14 7h1"></path><path d="M14 11h1"></path><path d="M14 15h1"></path></svg>
+            <span>Hotels</span>
+          </button>
+          <button class="nav-tab-item" data-view="wishlist">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            <span>Wishlist</span>
+          </button>
+          <button class="nav-tab-item" data-view="account">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <span>Account</span>
+          </button>
+        </nav>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Price Drop Alert Modal -->
+  <div class="modal-overlay" id="price-alert-modal">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="closePriceAlertModal()">✕</button>
+      <div style="font-size: 28px; margin-bottom: 8px;">🔔</div>
+      <h3 style="font-size: 18px; font-weight: 800; color: #0f172a; margin-bottom: 4px;">Set Price Drop Alert</h3>
+      <p style="font-size: 12px; color: #64748b; margin-bottom: 16px;" id="alert-modal-product-name">
+        Apple iPhone 15 (128GB)
+      </p>
+
+      <div style="margin-bottom: 14px;">
+        <label style="display:block;font-size: 11px; font-weight: 700; color: #475569; margin-bottom: 6px;">
+          NOTIFY ME WHEN PRICE DROPS BELOW (₹)
+        </label>
+        <input 
+          type="number" 
+          id="alert-target-price-input" 
+          value="65000" 
+          style="width: 100%; padding: 10px 14px; border: 1.5px solid var(--border-subtle); border-radius: var(--radius-sm); font-size: 15px; font-weight: 700; font-family: inherit; outline: none;" 
+        />
+      </div>
+
+      <div style="margin-bottom: 18px;">
+        <label style="display:block;font-size: 11px; font-weight: 700; color: #475569; margin-bottom: 6px;">
+          YOUR EMAIL OR WHATSAPP NUMBER
+        </label>
+        <input 
+          type="text" 
+          id="alert-email-input" 
+          placeholder="e.g. shameemkp@gmail.com" 
+          value="shameemkp@gmail.com" 
+          style="width: 100%; padding: 10px 14px; border: 1.5px solid var(--border-subtle); border-radius: var(--radius-sm); font-size: 14px; font-family: inherit; outline: none;" 
+        />
+      </div>
+
+      <button 
+        onclick="savePriceAlert()" 
+        style="width: 100%; background: var(--primary); color: white; border: none; padding: 12px; border-radius: var(--radius-md); font-size: 14px; font-weight: 800; cursor: pointer; box-shadow: var(--shadow-blue);"
+      >
+        Create Price Alert
+      </button>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

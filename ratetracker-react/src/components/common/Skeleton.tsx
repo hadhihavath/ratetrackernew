@@ -99,10 +99,11 @@ export function CategoryGridSkeleton() {
   return (
     <div className="grid grid-cols-3 gap-3 px-4 pb-4">
       {[1, 2, 3, 4, 5, 6].map((i) => (
-        <Skeleton key={i} variant="card" className="aspect-square flex items-center justify-center">
-          <Skeleton variant="circular" className="w-12 h-12" />
-          <Skeleton variant="text" className="w-20 h-4 mt-2 mx-auto" />
-        </Skeleton>
+        <div key={i} className="aspect-square flex flex-col items-center justify-center p-4">
+          <Skeleton variant="card" className="w-full h-full" />
+          <Skeleton variant="circular" className="w-12 h-12 mt-4" />
+          <Skeleton variant="text" className="w-20 h-4 mt-2" />
+        </div>
       ))}
     </div>
   )

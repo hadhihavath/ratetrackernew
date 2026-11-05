@@ -1,0 +1,211 @@
+# RateTracker.in - Price Comparison App Development Notes
+
+## Project Overview
+Building the best price comparison app for ratetracker.in domain with:
+- Mobile-first responsive design with 3D elements
+- Price comparison across Amazon, Flipkart, Croma, Reliance Digital, Vijay Sales, Samsung, boAt
+- Cuelinks API integration for affiliate monetization (Publisher CID: 82192)
+- Real-time price history charts (1M, 3M, 6M, 1Y)
+- Price drop alerts
+- Hotel price comparison (Booking.com, Agoda, MakeMyTrip, Expedia)
+
+## Existing Codebase Analysis
+
+### Two Versions Found:
+1. **Vanilla JS Version** (Root folder) - Production-ready, deployed on Vercel
+   - index.html (42KB) - Complete semantic HTML5 with all 8 views
+   - style.css (43KB) - Custom CSS3 design system with device frame toggles
+   - app.js (61KB) - Vanilla JS engine with all functionality
+   - Serverless API routes in `/api` (products, cuelinks, feeds, alerts, health)
+   - Supabase/PostgreSQL database with full schema
+
+2. **React + TypeScript Version** (`ratetracker-react/`) - Modern stack
+   - React 19, TypeScript, Vite, Tailwind CSS 4
+   - Zustand for state management (persisted)
+   - TanStack Query for server state
+   - Recharts for price history visualization
+   - Lucide React for icons
+   - React Router v7 for routing
+   - Component-based architecture with lazy loading
+
+### Tech Stack Summary:
+| Component | Technology |
+|-----------|------------|
+| Frontend | HTML/CSS/JS (Vanilla) + React/TypeScript/Tailwind (Modern) |
+| Backend | Node.js Serverless Functions (Vercel) |
+| Database | Supabase / PostgreSQL |
+| Affiliate | Cuelinks API v3 (CID: 82192) |
+| Product Data | Approved Merchant APIs/Feeds + Cache |
+| Hosting | Vercel (Edge + Serverless) |
+| Charts | Custom SVG (Vanilla) / Recharts (React) |
+
+## Cuelinks API Research Findings
+
+### What Cuelinks DOES Provide:
+- **Campaigns API** (`/campaigns?q=`) - Search merchant campaigns
+- **Link Conversion** (`/links/convert`) - Convert merchant URLs to affiliate tracking links
+- **Offers/Deals** (`/offers`) - Live coupon codes and promotional offers
+- **Performance Reports** (`/reports/performance`) - Earnings/commission tracking
+- **Smart Redirector** - `https://linksredirect.com/?cid=82192&source=api&url=...`
+
+### What Cuelinks DOES NOT Provide:
+- ❌ Direct product pricing data
+- ❌ Product catalogs or search APIs
+- ❌ Real-time price comparison across merchants
+- ❌ Product specifications or images
+
+### Key Cuelinks Configuration:
+- **Publisher CID**: 82192
+- **API Key**: oQab8xOk401MwoV5ofoIevFvlP_zu-WR_EarndNqpXk
+- **API Base**: https://developers.cuelinks.com/pub_api/v3
+- **Redirect Base**: https://linksredirect.com/
+
+### Integration Pattern Used:
+1. Server-side proxy (`/api/cuelinks`) keeps API key secure
+2. Client generates affiliate links via `generateCuelinksUrl()`
+3. Fail-safe fallback to direct store links if ad-blockers intercept
+4. Real Cuelinks campaigns displayed in "Price Drop" section
+
+## Product Data Sources (Approved Merchants)
+1. **Amazon India** - PA-API v5 / Cuelinks
+2. **Flipkart** - Affiliate Feed API / Cuelinks
+3. **Croma** - Direct Feed / Cuelinks
+4. **Reliance Digital** - Direct Feed / Cuelinks
+5. **Vijay Sales** - Direct Feed / Cuelinks
+6. **Samsung Shop** - Direct Feed / Cuelinks
+7. **boAt Lifestyle** - Direct Feed / Cuelinks
+
+## Database Schema (Supabase)
+- `merchants` - Approved store configurations
+- `products` - Product catalog with pricing, specs, ratings
+- `product_colors` - Color variants with images
+- `product_prices` - Cross-store price comparison (unique per product+merchant)
+- `price_history` - Time-series data (1M, 3M, 6M, 1Y periods)
+- `cuelinks_campaigns` - Live affiliate deals/offers
+- `price_alerts` - User price drop notifications
+- RLS policies for public read / server write
+
+## Current Features (Vanilla Version)
+✅ Home view with hero, search, categories, top deals
+✅ Search & Compare with category filters
+✅ Product detail with price comparison table
+✅ Interactive price history charts (SVG-based)
+✅ Color variant switcher
+✅ Specifications tab
+✅ Price drop alerts modal
+✅ Wishlist with checkboxes
+✅ Categories grid with 10 categories
+✅ Hotels comparison (Booking, Agoda, MMT, Expedia)
+✅ Price Drop page with live Cuelinks deals
+✅ Account page with Cuelinks config panel
+✅ Device frame toggle (Desktop / Mobile simulator)
+✅ Link mode toggle (Cuelinks / Direct)
+✅ Bottom navigation (mobile) / Top nav (desktop)
+✅ Toast notifications
+✅ Cuelinks auto-monetization script
+
+## Enhancement Plan: Best-in-Class Mobile-Friendly Design with 3D Elements
+
+### Phase 1: Core 3D Infrastructure
+- [ ] Integrate Three.js / React Three Fiber for 3D elements
+- [ ] Create 3D hero background with floating product elements
+- [ ] Add 3D product viewer for detail page (rotate, zoom)
+- [ ] Implement 3D price history chart (WebGL-based)
+- [ ] Add 3D category cards with hover/tap interactions
+
+### Phase 2: Glass Morphism & Modern UI
+- [ ] Glass morphism cards with backdrop-filter blur
+- [ ] Animated gradient borders
+- [ ] Micro-interactions (spring animations, magnetic buttons)
+- [ ] Parallax scroll effects
+- [ ] Dark mode with automatic system detection
+
+### Phase 3: Mobile-First Enhancements
+- [ ] Touch-friendly 3D interactions (drag to rotate)
+- [ ] Pull-to-refresh on lists
+- [ ] Haptic feedback simulation (visual)
+- [ ] Bottom sheet modals instead of center modals
+- [ ] Swipe gestures for navigation
+
+### Phase 4: Performance & Polish
+- [ ] Lazy load 3D scenes
+- [ ] Optimize bundle size (code splitting)
+- [ ] Add service worker for offline caching
+- [ ] Web Vitals optimization
+- [ ] A11y improvements (ARIA, focus management)
+
+### Phase 5: Advanced Features
+- [ ] AR product preview (WebXR) - future
+- [ ] Voice search integration
+- [ ] Price prediction ML model
+- [ ] Social sharing with OG images
+- [ ] PWA install prompt
+
+## 3D Element Ideas for ratetracker.in
+
+### Hero Section (Home)
+- Floating 3D product icons (phone, laptop, headphones, shoes) rotating slowly
+- Particle system background with brand colors
+- Interactive: mouse/touch moves particles
+
+### Product Detail Page
+- 3D product model viewer (using GLTF models or CSS 3D transforms)
+- Rotatable product with color variants
+- Exploded view for specifications
+
+### Price History Chart
+- 3D line chart with depth (WebGL/Three.js)
+- Camera orbits on period change
+- Data points as floating spheres
+
+### Category Cards
+- 3D flip cards on hover/tap
+- Icon pops out in 3D space
+- Magnetic hover effect
+
+### Price Drop / Deals
+- 3D discount badges with particle burst
+- Countdown timer with 3D flipping numbers
+
+## Notes on Cuelinks API Usage for Price Comparison
+
+Since Cuelinks doesn't provide product pricing directly, the current approach:
+1. **Approved Merchant Feeds** - Direct API integrations with each merchant
+2. **Normalized Cache** - Server-side aggregation in `lib/merchantFeeds.js`
+3. **Supabase Storage** - Persistent product/price database
+4. **Cuelinks Only For** - Affiliate link conversion + live deals/offers
+
+Future: Consider integrating with:
+- Datafeedr API (product data + prices)
+- Keepa API (Amazon price history)
+- Custom scrapers (with proper authorization)
+
+## Environment Variables Required
+```
+SUPABASE_URL=https://xxx.supabase.co
+SUPABASE_ANON_KEY=xxx
+CUELINKS_PUB_CID=82192
+CUELINKS_API_KEY=oQab8xOk401MwoV5ofoIevFvlP_zu-WR_EarndNqpXk
+```
+
+## Deployment Checklist
+- [ ] Push to GitHub
+- [ ] Import to Vercel (Framework: Vite/React)
+- [ ] Add environment variables
+- [ ] Run Supabase schema.sql
+- [ ] Test Cuelinks redirect
+- [ ] Verify all API endpoints
+- [ ] Configure custom domain: ratetracker.in
+
+## Next Steps
+1. Create enhanced React version with 3D elements
+2. Add Three.js / React Three Fiber integration
+3. Implement glass morphism design system
+4. Build 3D hero, product viewer, charts
+5. Polish mobile interactions
+6. Deploy to Vercel with ratetracker.in domain
+
+---
+Last Updated: 2026-11-04
+Project: RateTracker.in - Price Comparison Platform
+Domain: ratetracker.in

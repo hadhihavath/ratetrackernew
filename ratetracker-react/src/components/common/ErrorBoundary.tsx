@@ -1,6 +1,6 @@
 import { Component, type ReactNode, type ErrorInfo } from 'react'
 import { AlertTriangle, RefreshCw, Home } from 'lucide-react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 
 interface Props {
@@ -69,7 +69,7 @@ export class ErrorBoundary extends Component<Props, State> {
               Go Home
             </button>
           </div>
-          {process.env.NODE_ENV === 'development' && this.state.error && (
+          {import.meta.env.DEV && this.state.error && (
             <details className="mt-6 w-full max-w-md mx-auto text-left">
               <summary className="text-sm text-text-muted cursor-pointer">Error Details</summary>
               <pre className="mt-2 p-3 bg-bg-subtle rounded-lg text-xs overflow-auto text-text-secondary">

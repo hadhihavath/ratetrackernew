@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { productsApi } from '@/api'
 import { HotelCard } from '@/components/hotel'
 import { ArrowLeft, Calendar, Users, Search, MapPin } from 'lucide-react'
 import toast from 'react-hot-toast'
+import { GlassCard, GlassContainer, GlassButton, GlassInput } from '@/components/three-d'
 
 const POPULAR_DESTINATIONS = [
   { name: 'Goa', image: 'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=300&auto=format&fit=crop&q=80', count: '150+ hotels' },
@@ -66,32 +67,34 @@ export function Hotels() {
   })) || []
 
   return (
-    <section className="app-screen-view" id="view-hotels">
-      <div className="view-header flex items-center gap-3 px-4 py-3.5 border-b border-border-light bg-white sticky top-16 z-40 md:top-0">
-        <button onClick={goBack} className="back-btn p-2 rounded-full text-text-main hover:bg-bg-subtle transition-colors">
-          <ArrowLeft className="w-5 h-5" />
-        </button>
-        <h2 className="view-header-title text-xl font-extrabold text-text-main flex items-center gap-2">
-          <MapPin className="w-5 h-5 text-primary" />
-          Hotels
-        </h2>
+    <section className="app-screen-view min-h-screen" id="view-hotels">
+      {/* Header with Glass Container */}
+      <div className="sticky top-16 z-40 md:top-0">
+        <GlassContainer className="px-4 py-3 border-b border-white/20 dark:border-slate-700/30" padding="none" gradient={true}>
+          <div className="view-header flex items-center gap-3">
+            <button onClick={goBack} className="back-btn p-2 rounded-full text-text-main hover:bg-white/20 dark:hover:bg-slate-800/50 transition-colors">
+              <ArrowLeft className="w-5 h-5" />
+            </button>
+            <h2 className="view-header-title text-xl font-extrabold text-text-main flex items-center gap-2">
+              <MapPin className="w-5 h-5 text-primary" />
+              Hotels
+            </h2>
+          </div>
+        </GlassContainer>
       </div>
 
-      {/* Hero Search Widget */}
-      <div className="hero-search-widget mx-4 my-4 bg-white border border-border-light rounded-xl p-4 shadow-sm">
-        <form onSubmit={handleSearch} className="space-y-3">
+      {/* Hero Search Widget with Glass Effect */}
+      <GlassContainer className="mx-4 my-4" padding="lg" rounded="2xl" gradient={true}>
+        <form onSubmit={handleSearch} className="space-y-4">
           <div className="search-field">
             <label className="block text-xs font-bold text-text-secondary mb-1">Destination</label>
-            <div className="relative">
-              <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted" />
-              <input
-                type="text"
-                value={destination}
-                onChange={(e) => setDestination(e.target.value)}
-                placeholder="Where are you going?"
-                className="w-full pl-10 pr-4 py-2.5 bg-bg-subtle border border-border-subtle rounded-lg text-text-main placeholder:text-text-muted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-              />
-            </div>
+            <GlassInput
+              value={destination}
+              onChange={(e) => setDestination(e.target.value)}
+              placeholder="Where are you going?"
+              iconLeft={<MapPin className="w-5 h-5" />}
+              className="bg-white/10 dark:bg-slate-800/30 border-white/20 dark:border-slate-700/30 focus:border-primary/50 focus:ring-primary/50"
+            />
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -103,7 +106,7 @@ export function Hotels() {
                   type="date"
                   value={checkIn}
                   onChange={(e) => setCheckIn(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 bg-bg-subtle border border-border-subtle rounded-lg text-text-main focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  className="w-full pl-10 pr-4 py-2.5 bg-white/10 dark:bg-slate-800/30 border border-white/20 dark:border-slate-700/30 rounded-lg text-text-main focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                   min={new Date().toISOString().split('T')[0]}
                 />
               </div>
@@ -116,7 +119,7 @@ export function Hotels() {
                   type="date"
                   value={checkOut}
                   onChange={(e) => setCheckOut(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 bg-bg-subtle border border-border-subtle rounded-lg text-text-main focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  className="w-full pl-10 pr-4 py-2.5 bg-white/10 dark:bg-slate-800/30 border border-white/20 dark:border-slate-700/30 rounded-lg text-text-main focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                   min={checkIn || new Date().toISOString().split('T')[0]}
                 />
               </div>
@@ -128,7 +131,7 @@ export function Hotels() {
                 <select
                   value={guests}
                   onChange={(e) => setGuests(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 bg-bg-subtle border border-border-subtle rounded-lg text-text-main focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 appearance-none cursor-pointer"
+                  className="w-full pl-10 pr-4 py-2.5 bg-white/10 dark:bg-slate-800/30 border border-white/20 dark:border-slate-700/30 rounded-lg text-text-main focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 appearance-none cursor-pointer"
                 >
                   <option>1 Guest, 1 Room</option>
                   <option>2 Guests, 1 Room</option>
@@ -139,43 +142,49 @@ export function Hotels() {
               </div>
             </div>
             <div className="search-field md:col-span-4">
-              <button
+              <GlassButton
                 type="submit"
-                className="w-full btn-primary py-3 text-base font-extrabold flex items-center justify-center gap-2"
+                variant="primary"
+                size="lg"
+                fullWidth
+                iconLeft={<Search className="w-5 h-5" />}
               >
-                <Search className="w-5 h-5" />
                 Search Hotels
-              </button>
+              </GlassButton>
             </div>
           </div>
         </form>
-      </div>
+      </GlassContainer>
 
-      {/* Popular Destinations */}
-      <div className="section-header flex justify-between items-center px-4 pt-2 pb-1">
-        <h3 className="section-title text-lg font-extrabold tracking-tight text-text-main flex items-center gap-2">
-          <MapPin className="w-5 h-5 text-primary" />
-          Popular Destinations
-        </h3>
-      </div>
+      {/* Popular Destinations with Glass Cards */}
+      <GlassContainer className="px-4 pt-2 pb-1 mx-4" padding="none" gradient={false}>
+        <div className="section-header flex justify-between items-center">
+          <h3 className="section-title text-lg font-extrabold tracking-tight text-text-main flex items-center gap-2">
+            <MapPin className="w-5 h-5 text-primary" />
+            Popular Destinations
+          </h3>
+        </div>
+      </GlassContainer>
 
       <div className="destinations-scroll flex gap-3 px-4 pb-4 overflow-x-auto scrollbar-hide">
         {POPULAR_DESTINATIONS.map((dest) => (
-          <Link
+          <GlassCard
             key={dest.name}
-            to="/hotels"
+            variant="outlined"
+            hoverEffect="lift"
+            clickable
+            className="min-w-[160px] max-w-[160px] flex-shrink-0 p-0 overflow-hidden"
             onClick={(e) => {
               e.preventDefault()
               setDestination(dest.name)
               toast.success(`Showing hotels in ${dest.name}`)
             }}
-            className="destination-card min-w-[160px] max-w-[160px] bg-white border border-border-light rounded-xl overflow-hidden flex-shrink-0 transition-all hover:shadow-lg hover:-translate-y-1"
           >
-            <div className="relative h-24">
+            <div className="relative h-24 overflow-hidden">
               <img
                 src={dest.image}
                 alt={dest.name}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
               />
               <div className="absolute bottom-2 left-2 right-2">
                 <span className="bg-black/70 text-white text-xs px-2 py-1 rounded-full">{dest.count}</span>
@@ -184,12 +193,12 @@ export function Hotels() {
             <div className="p-3">
               <h4 className="font-extrabold text-text-main text-sm">{dest.name}</h4>
             </div>
-          </Link>
+          </GlassCard>
         ))}
       </div>
 
-      {/* Sort Bar */}
-      <div className="sort-bar flex items-center gap-2 px-4 py-2 bg-white border-y border-border-light overflow-x-auto scrollbar-hide">
+      {/* Sort Bar with Glass Effect */}
+      <div className="sort-bar flex items-center gap-2 px-4 py-2 border-y border-white/20 dark:border-slate-700/30 overflow-x-auto scrollbar-hide bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm">
         <span className="text-xs font-bold text-text-muted flex-shrink-0">Sort by:</span>
         {SORT_OPTIONS.map((sort) => (
           <button
@@ -197,8 +206,8 @@ export function Hotels() {
             onClick={() => handleSortChange(sort)}
             className={`sort-btn px-3 py-1.5 rounded-full text-xs font-extrabold whitespace-nowrap transition-all ${
               activeSort === sort
-                ? 'bg-primary text-white'
-                : 'bg-bg-subtle text-text-secondary hover:bg-border-subtle'
+                ? 'bg-primary text-white shadow-lg shadow-primary/30'
+                : 'bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm text-text-secondary hover:bg-white/90 dark:hover:bg-slate-700/90 border border-white/30 dark:border-slate-700/50'
             }`}
           >
             {sort}
@@ -206,32 +215,36 @@ export function Hotels() {
         ))}
       </div>
 
-      {/* Hotels List */}
-      <div id="hotels-list-container" className="px-4 py-2 space-y-3 pb-20">
+      {/* Hotels List with Glass Cards */}
+      <div id="hotels-list-container" className="px-4 py-4 space-y-3 pb-20">
         {isLoading ? (
           <div className="space-y-4">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="bg-white border border-border-subtle rounded-xl p-4 animate-pulse">
+              <GlassCard key={i} variant="outlined" className="animate-pulse" hoverEffect="lift">
                 <div className="flex gap-4 items-center">
-                  <div className="w-24 h-24 bg-bg-subtle rounded-lg" />
+                  <div className="w-24 h-24 bg-white/20 dark:bg-slate-800/50 rounded-lg" />
                   <div className="flex-1 space-y-2">
-                    <div className="h-5 bg-bg-subtle rounded w-3/4" />
-                    <div className="h-4 bg-bg-subtle rounded w-1/2" />
-                    <div className="h-6 bg-bg-subtle rounded w-1/3" />
+                    <div className="h-5 bg-white/20 dark:bg-slate-800/50 rounded w-3/4" />
+                    <div className="h-4 bg-white/20 dark:bg-slate-800/50 rounded w-1/2" />
+                    <div className="h-6 bg-white/20 dark:bg-slate-800/50 rounded w-1/3" />
                   </div>
                 </div>
-              </div>
+              </GlassCard>
             ))}
           </div>
         ) : hotels.length > 0 ? (
           hotels.map((hotel) => (
-            <HotelCard key={hotel.id} hotel={hotel} />
+            <GlassCard key={hotel.id} variant="outlined" hoverEffect="lift" className="p-0 overflow-hidden">
+              <HotelCard hotel={hotel} />
+            </GlassCard>
           ))
         ) : (
-          <div className="text-center py-12 text-text-muted">
-            <p className="font-bold text-lg mb-2">No hotels available</p>
-            <p className="text-sm">Check back later or search for a destination</p>
-          </div>
+          <GlassContainer className="text-center py-12 mx-4" padding="xl" rounded="2xl">
+            <div className="text-4xl mb-3">🏨</div>
+            <p className="font-bold text-lg text-text-main mb-2">No hotels available</p>
+            <p className="text-sm text-text-muted mb-4">Check back later or search for a destination</p>
+            <GlassButton variant="outline" onClick={() => setDestination('Goa')}>Explore Goa</GlassButton>
+          </GlassContainer>
         )}
       </div>
     </section>

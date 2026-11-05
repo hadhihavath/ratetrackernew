@@ -1,24 +1,34 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { useAppStore } from '@/stores/appStore'
 import { CATEGORIES, BRANDS } from '@/types'
 import { ArrowLeft, Search, ChevronRight, ShoppingBag } from 'lucide-react'
-
-const PROMO_BANNER_IMAGE = 'https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=200&auto=format&fit=crop&q=80'
+import { CategoryGrid3D, GlassContainer, GlassButton } from '@/components/three-d'
 
 export function Categories() {
   const navigate = useNavigate()
-  const { setActiveCategory } = useAppStore()
-
-  const handleCategoryClick = (category: string) => {
-    setActiveCategory(category)
-    navigate('/search')
-  }
 
   const goBack = () => navigate('/')
 
+  // Prepare categories for 3D grid
+  const categories3D = CATEGORIES.map((cat) => ({
+    name: cat.name,
+    icon: cat.icon,
+    color: cat.color,
+    href: `/search?category=${encodeURIComponent(cat.name)}`,
+    productCount: Math.floor(Math.random() * 200) + 50, // Simulated product counts
+  }))
+
+  // Prepare brands for 3D grid
+  const brands3D = BRANDS.map((brand) => ({
+    name: brand.name,
+    icon: '🏷️',
+    color: '#1e3a8a',
+    href: `/search?q=${encodeURIComponent(brand.name)}`,
+    productCount: Math.floor(Math.random() * 100) + 20,
+  }))
+
   return (
-    <section className="app-screen-view" id="view-categories">
-      <div className="view-header flex items-center gap-3 px-4 py-3.5 border-b border-border-light bg-white sticky top-16 z-40 md:top-0">
+    <section className="app-screen-view min-h-screen" id="view-categories">
+      <div className="view-header flex items-center gap-3 px-4 py-3.5 border-b border-border-light bg-white/80 backdrop-blur-xl sticky top-16 z-40 md:top-0">
         <button onClick={goBack} className="back-btn p-2 rounded-full text-text-main hover:bg-bg-subtle transition-colors">
           <ArrowLeft className="w-5 h-5" />
         </button>
@@ -28,62 +38,72 @@ export function Categories() {
         </Link>
       </div>
 
-      {/* Full Categories Grid */}
-      <div className="categories-preview-grid grid grid-cols-3 gap-3 px-4 py-4">
-        {CATEGORIES.map((cat) => (
-          <Link
-            key={cat.name}
-            to="/search"
-            onClick={() => handleCategoryClick(cat.name)}
-            className="category-tile bg-white border border-border-light rounded-lg p-4 flex flex-col items-center text-center gap-2 transition-all hover:-translate-y-1 hover:border-primary-light hover:shadow-md"
-          >
-            <div className="category-icon-box w-12 h-12 rounded-xl flex items-center justify-center text-2xl" style={{ backgroundColor: cat.color }}>
-              {cat.icon}
+      <div className="px-4 py-6 space-y-8">
+        {/* Categories Section with 3D Grid */}
+        <div>
+          <div className="section-header flex justify-between items-center mb-4">
+            <h3 className="section-title text-lg font-extrabold tracking-tight text-text-main flex items-center gap-2">
+              <ShoppingBag className="w-5 h-5 text-primary" />
+              Shop by Category
+            </h3>
+            <Link to="/search" className="view-all-link text-sm font-extrabold text-primary flex items-center gap-1">
+              View All <ChevronRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          <CategoryGrid3D
+            categories={categories3D}
+            columns={3}
+            className="px-4"
+          />
+        </div>
+
+        {/* Popular Brands Section with 3D Grid */}
+        <div>
+          <div className="section-header flex justify-between items-center mb-4">
+            <h3 className="section-title text-lg font-extrabold tracking-tight text-text-main flex items-center gap-2">
+              <ShoppingBag className="w-5 h-5 text-primary" />
+              Popular Brands
+            </h3>
+            <Link to="/search" className="view-all-link text-sm font-extrabold text-primary flex items-center gap-1">
+              View All <ChevronRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          <CategoryGrid3D
+            categories={brands3D}
+            columns={4}
+            className="px-4"
+          />
+        </div>
+
+        {/* Big Savings Promotional Banner with Glass Container */}
+        <GlassContainer
+          className="mx-4 mb-6"
+          padding="lg"
+          rounded="2xl"
+          gradient={true}
+        >
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="promo-text text-center md:text-left">
+              <strong className="block text-lg md:text-xl font-extrabold text-white mb-2">Big Savings</strong>
+              <span className="text-sm md:text-base text-slate-300 block mb-4 md:mb-5">on Your Favourite Brands</span>
+              <GlassButton
+                variant="primary"
+                size="md"
+                iconLeft={<Search className="w-4 h-4" />}
+                onClick={() => navigate('/search')}
+              >
+                Shop Now
+              </GlassButton>
             </div>
-            <span className="category-title text-sm font-extrabold text-text-main">{cat.name}</span>
-          </Link>
-        ))}
-      </div>
-
-      {/* Popular Brands */}
-      <div className="section-header flex justify-between items-center px-4 pt-2 pb-1">
-        <h3 className="section-title text-lg font-extrabold tracking-tight text-text-main flex items-center gap-2">
-          <ShoppingBag className="w-5 h-5 text-primary" />
-          Popular Brands
-        </h3>
-        <Link to="/search" className="view-all-link text-sm font-extrabold text-primary flex items-center gap-1">
-          View All <ChevronRight className="w-4 h-4" />
-        </Link>
-      </div>
-
-      <div className="brands-row grid grid-cols-4 gap-2.5 px-4 pb-4">
-        {BRANDS.map((brand) => (
-          <Link
-            key={brand.name}
-            to="/search"
-            onClick={(e) => {
-              e.preventDefault()
-              navigate(`/search?q=${encodeURIComponent(brand.name)}`)
-            }}
-            className="brand-chip-card bg-white border border-border-subtle rounded-lg py-2.5 flex items-center justify-center font-extrabold text-sm text-text-main transition-all hover:border-primary hover:text-primary hover:scale-[1.02]"
-          >
-            {brand.name}
-          </Link>
-        ))}
-      </div>
-
-      {/* Big Savings Promotional Banner */}
-      <div className="promo-banner mx-4 mb-6 bg-slate-900 rounded-xl p-4 md:p-5 flex flex-col md:flex-row items-center justify-between gap-4" style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)' }}>
-        <div className="promo-text text-center md:text-left">
-          <strong className="block text-lg font-extrabold text-white mb-1">Big Savings</strong>
-          <span className="text-sm text-slate-400 block mb-3 md:mb-4">on Your Favourite Brands</span>
-          <Link to="/search" className="promo-btn inline-block bg-white text-slate-900 px-5 py-2 rounded-full text-sm font-extrabold transition-all hover:bg-primary hover:text-white">
-            Shop Now
-          </Link>
-        </div>
-        <div className="promo-img-wrap w-20 h-16 md:w-24 md:h-20 flex-shrink-0">
-          <img src={PROMO_BANNER_IMAGE} alt="Headphones deal" className="max-h-full max-w-full object-contain" />
-        </div>
+            <div className="promo-img-wrap w-24 h-20 md:w-28 md:h-24 flex-shrink-0">
+              <div className="w-full h-full rounded-xl bg-gradient-to-br from-primary/20 to-primary/40 flex items-center justify-center">
+                <span className="text-4xl md:text-5xl">🎧</span>
+              </div>
+            </div>
+          </div>
+        </GlassContainer>
       </div>
     </section>
   )

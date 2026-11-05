@@ -5,6 +5,7 @@ import { formatINR } from '@/utils'
 import { openStoreDeal } from '@/utils/cuelinks'
 import { ArrowLeft, Heart, ShoppingBag, Trash2 } from 'lucide-react'
 import toast from 'react-hot-toast'
+import { GlassCard, GlassContainer, GlassButton } from '@/components/three-d'
 
 const WISHLIST_FILTERS = ['All', 'Products', 'Hotels']
 
@@ -87,67 +88,76 @@ export function Wishlist() {
 
   if (wishlist.length === 0) {
     return (
-      <section className="app-screen-view" id="view-wishlist">
-        <div className="view-header flex items-center justify-between px-4 py-3.5 border-b border-border-light bg-white sticky top-16 z-40 md:top-0">
-          <button onClick={goBack} className="back-btn p-2 rounded-full text-text-main hover:bg-bg-subtle transition-colors">
-            <ArrowLeft className="w-5 h-5" />
-          </button>
-          <h2 className="view-header-title text-xl font-extrabold text-text-main flex items-center gap-2">
-            <Heart className="w-5 h-5 text-danger fill-current" />
-            Wishlist
-          </h2>
+      <section className="app-screen-view min-h-screen" id="view-wishlist">
+        <div className="sticky top-16 z-40 md:top-0">
+          <GlassContainer className="px-4 py-3 border-b border-white/20 dark:border-slate-700/30" padding="none" gradient={true}>
+            <div className="view-header flex items-center justify-between">
+              <button onClick={goBack} className="back-btn p-2 rounded-full text-text-main hover:bg-white/20 dark:hover:bg-slate-800/50 transition-colors">
+                <ArrowLeft className="w-5 h-5" />
+              </button>
+              <h2 className="view-header-title text-xl font-extrabold text-text-main flex items-center gap-2">
+                <Heart className="w-5 h-5 text-danger fill-current" />
+                Wishlist
+              </h2>
+            </div>
+          </GlassContainer>
         </div>
 
-        <div className="flex-1 flex flex-col items-center justify-center px-4 text-center py-12">
-          <div className="w-24 h-24 rounded-full bg-danger-bg flex items-center justify-center mb-6">
+        <GlassContainer className="mx-4 my-8 flex-1 flex flex-col items-center justify-center px-4 text-center py-12" padding="xl" rounded="2xl" gradient={true}>
+          <div className="w-24 h-24 rounded-full bg-danger/20 flex items-center justify-center mb-6">
             <Heart className="w-12 h-12 text-danger" />
           </div>
           <h3 className="text-xl font-extrabold text-text-main mb-2">Your Wishlist is Empty</h3>
           <p className="text-text-muted mb-6 max-w-xs">Save products you love and get notified when prices drop</p>
-          <button
+          <GlassButton
+            variant="primary"
+            size="lg"
+            iconLeft={<ShoppingBag className="w-5 h-5" />}
             onClick={() => navigate('/search')}
-            className="btn-primary px-6 py-3 flex items-center gap-2"
           >
-            <ShoppingBag className="w-5 h-5" />
             Start Shopping
-          </button>
-        </div>
+          </GlassButton>
+        </GlassContainer>
       </section>
     )
   }
 
   return (
-    <section className="app-screen-view" id="view-wishlist">
-      {/* Header */}
-      <div className="view-header flex items-center justify-between px-4 py-3.5 border-b border-border-light bg-white sticky top-16 z-40 md:top-0">
-        <button onClick={goBack} className="back-btn p-2 rounded-full text-text-main hover:bg-bg-subtle transition-colors">
-          <ArrowLeft className="w-5 h-5" />
-        </button>
-        <h2 className="view-header-title text-xl font-extrabold text-text-main flex items-center gap-2">
-          <Heart className="w-5 h-5 text-danger fill-current" />
-          Wishlist
-          <span className="wishlist-count bg-danger-bg text-danger text-xs font-extrabold px-2 py-0.5 rounded-full">
-            {wishlist.length}
-          </span>
-        </h2>
-        <button
-          onClick={() => setIsSelectionMode(!isSelectionMode)}
-          className="header-action-btn px-3 py-1.5 rounded-full bg-bg-subtle border border-border-subtle text-text-main text-sm font-extrabold transition-colors hover:bg-border-subtle"
-        >
-          {isSelectionMode ? 'Done' : 'Select'}
-        </button>
+    <section className="app-screen-view min-h-screen" id="view-wishlist">
+      {/* Header with Glass Container */}
+      <div className="sticky top-16 z-40 md:top-0">
+        <GlassContainer className="px-4 py-3 border-b border-white/20 dark:border-slate-700/30" padding="none" gradient={true}>
+          <div className="view-header flex items-center justify-between">
+            <button onClick={goBack} className="back-btn p-2 rounded-full text-text-main hover:bg-white/20 dark:hover:bg-slate-800/50 transition-colors">
+              <ArrowLeft className="w-5 h-5" />
+            </button>
+            <h2 className="view-header-title text-xl font-extrabold text-text-main flex items-center gap-2">
+              <Heart className="w-5 h-5 text-danger fill-current" />
+              Wishlist
+              <span className="wishlist-count bg-danger/20 text-danger text-xs font-extrabold px-2 py-0.5 rounded-full">
+                {wishlist.length}
+              </span>
+            </h2>
+            <button
+              onClick={() => setIsSelectionMode(!isSelectionMode)}
+              className="header-action-btn px-3 py-1.5 rounded-full bg-white/10 dark:bg-slate-800/30 border border-white/20 dark:border-slate-700/30 text-text-main text-sm font-extrabold transition-colors hover:bg-white/20 dark:hover:bg-slate-700/50"
+            >
+              {isSelectionMode ? 'Done' : 'Select'}
+            </button>
+          </div>
+        </GlassContainer>
       </div>
 
-      {/* Filter Chips */}
-      <div className="category-filter-chips flex gap-2 px-4 py-2.5 bg-white border-b border-border-light overflow-x-auto scrollbar-hide">
+      {/* Filter Chips with Glass Effect */}
+      <div className="category-filter-chips flex gap-2 px-4 py-2.5 border-b border-border-light overflow-x-auto scrollbar-hide bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm">
         {WISHLIST_FILTERS.map((filter) => (
           <button
             key={filter}
             onClick={() => setActiveFilter(filter)}
             className={`filter-chip px-4 py-1.5 rounded-full text-sm font-extrabold whitespace-nowrap transition-all ${
               activeFilter === filter
-                ? 'bg-primary text-white'
-                : 'bg-bg-subtle text-text-secondary hover:bg-border-subtle'
+                ? 'bg-primary text-white shadow-lg shadow-primary/30'
+                : 'bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm text-text-secondary hover:bg-white/90 dark:hover:bg-slate-700/90 border border-white/30 dark:border-slate-700/50'
             }`}
           >
             {filter}
@@ -157,35 +167,41 @@ export function Wishlist() {
 
       {/* Selection Mode Bar */}
       {isSelectionMode && (
-        <div className="selection-bar fixed top-16 left-0 right-0 bg-primary text-white px-4 py-3 flex items-center justify-between z-40 md:static md:bg-transparent md:text-primary md:shadow-none md:border-t md:border-border-light">
-          <span className="text-sm font-semibold md:hidden">
-            {selectedItems.size} selected
-          </span>
-          <div className="flex items-center gap-3 md:hidden">
-            <button
-              onClick={handleBuySelected}
-              disabled={selectedItems.size === 0}
-              className="bg-white text-primary px-4 py-2 rounded-lg text-sm font-extrabold disabled:opacity-50"
-            >
-              Buy ({selectedItems.size})
-            </button>
-            <button
-              onClick={handleDeleteSelected}
-              disabled={selectedItems.size === 0}
-              className="border border-white/30 px-4 py-2 rounded-lg text-sm font-extrabold disabled:opacity-50"
-            >
-              Remove
-            </button>
+        <GlassContainer className="fixed top-16 left-0 right-0 px-4 py-3 z-40 md:static md:bg-transparent md:text-primary md:shadow-none md:border-t md:border-white/20 md:dark:border-slate-700/30" padding="none" rounded="lg" gradient={true}>
+          <div className="flex items-center justify-between">
+            <span className="text-sm font-semibold md:hidden">
+              {selectedItems.size} selected
+            </span>
+            <div className="flex items-center gap-3 md:hidden">
+              <GlassButton
+                variant="primary"
+                size="sm"
+                disabled={selectedItems.size === 0}
+                onClick={handleBuySelected}
+              >
+                Buy ({selectedItems.size})
+              </GlassButton>
+              <GlassButton
+                variant="outline"
+                size="sm"
+                disabled={selectedItems.size === 0}
+                onClick={handleDeleteSelected}
+              >
+                Remove
+              </GlassButton>
+            </div>
           </div>
-        </div>
+        </GlassContainer>
       )}
 
-      {/* Wishlist Items */}
-      <div id="wishlist-items-container" className="px-4 py-2 space-y-3 pb-28 md:pb-8">
+      {/* Wishlist Items with Glass Cards */}
+      <div id="wishlist-items-container" className="px-4 py-4 space-y-3 pb-28 md:pb-8">
         {wishlistProducts.map((product) => (
-          <div
+          <GlassCard
             key={product.id}
-            className={`wishlist-item bg-white border border-border-subtle rounded-xl overflow-hidden transition-all ${
+            variant="outlined"
+            hoverEffect="lift"
+            className={`wishlist-item overflow-hidden transition-all ${
               selectedItems.has(product.id) ? 'ring-2 ring-primary ring-offset-2' : ''
             }`}
           >
@@ -209,7 +225,7 @@ export function Wishlist() {
                 )}
 
                 {/* Product Image */}
-                <div className="w-20 h-20 flex-shrink-0 bg-bg-subtle rounded-lg overflow-hidden">
+                <div className="w-20 h-20 flex-shrink-0 bg-white/20 dark:bg-slate-800/50 rounded-lg overflow-hidden">
                   <img
                     src={product.colors[0].img}
                     alt={product.title}
@@ -224,7 +240,7 @@ export function Wishlist() {
                     {!isSelectionMode && (
                       <button
                         onClick={() => handleWishlistToggle(product.id)}
-                        className="flex-shrink-0 p-1.5 rounded-full text-danger hover:bg-danger-bg transition-colors"
+                        className="flex-shrink-0 p-1.5 rounded-full text-danger hover:bg-danger/10 transition-colors"
                         aria-label="Remove from wishlist"
                       >
                         <Trash2 className="w-4 h-4" />
@@ -243,47 +259,50 @@ export function Wishlist() {
               </div>
 
               {/* Store Quick Actions */}
-              <div className="mt-3 pt-3 border-t border-border-light">
+              <div className="mt-3 pt-3 border-t border-white/20 dark:border-slate-700/30">
                 <div className="flex flex-wrap gap-2">
                   {product.stores.slice(0, 3).map((store) => (
-                    <button
+                    <GlassButton
                       key={store.name}
+                      variant={store.isBestDeal ? 'primary' : 'outline'}
+                      size="sm"
                       onClick={() => handleStoreClick(store, product)}
-                      className={`store-btn flex-1 min-w-[100px] py-2 px-3 rounded-lg text-xs font-extrabold transition-all ${
-                        store.isBestDeal
-                          ? 'bg-primary text-white shadow-blue'
-                          : 'bg-white border border-border-subtle text-text-secondary hover:bg-bg-subtle'
-                      }`}
+                      className="flex-1 min-w-[100px] text-xs font-extrabold"
                     >
-                      {store.name}
-                      <span className="ml-1">{formatINR(store.price)}</span>
-                    </button>
+                      {store.name} <span className="ml-1">{formatINR(store.price)}</span>
+                    </GlassButton>
                   ))}
                 </div>
               </div>
             </div>
-          </div>
+          </GlassCard>
         ))}
       </div>
 
       {/* Bottom Action Bar (Selection Mode) - Mobile */}
       {isSelectionMode && (
-        <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-border-subtle px-4 py-3 flex gap-3 z-50 max-w-[420px] mx-auto md:hidden">
-          <button
-            onClick={handleBuySelected}
-            disabled={selectedItems.size === 0}
-            className="btn-buy-action flex-1 bg-primary text-white border-none rounded-lg py-3 text-base font-extrabold cursor-pointer disabled:opacity-50"
-          >
-            Buy ({selectedItems.size})
-          </button>
-          <button
-            onClick={handleDeleteSelected}
-            disabled={selectedItems.size === 0}
-            className="btn-wishlist-action flex-1 bg-white border-2 border-danger-border text-danger py-3 text-base font-extrabold rounded-lg cursor-pointer disabled:opacity-50"
-          >
-            Remove
-          </button>
-        </div>
+        <GlassContainer className="fixed bottom-0 left-0 right-0 px-4 py-3 z-50 max-w-[420px] mx-auto md:hidden" padding="none" gradient={true}>
+          <div className="flex gap-3">
+            <GlassButton
+              variant="primary"
+              size="lg"
+              fullWidth
+              disabled={selectedItems.size === 0}
+              onClick={handleBuySelected}
+            >
+              Buy ({selectedItems.size})
+            </GlassButton>
+            <GlassButton
+              variant="outline"
+              size="lg"
+              fullWidth
+              disabled={selectedItems.size === 0}
+              onClick={handleDeleteSelected}
+            >
+              Remove
+            </GlassButton>
+          </div>
+        </GlassContainer>
       )}
     </section>
   )

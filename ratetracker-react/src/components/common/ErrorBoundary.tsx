@@ -1,6 +1,5 @@
 import { Component, type ReactNode, type ErrorInfo } from 'react'
 import { AlertTriangle, RefreshCw, Home } from 'lucide-react'
-import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 
 interface Props {
@@ -34,8 +33,7 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   handleGoHome = () => {
-    const navigate = useNavigate()
-    navigate('/')
+    window.location.href = '/'
   }
 
   render() {

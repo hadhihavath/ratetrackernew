@@ -502,6 +502,6 @@ function StatItem({ icon: Icon, value, label }: { icon: React.ElementType; value
         <div className="text-lg font-extrabold text-white">{value}</div>
         <div className="text-xs text-slate-400">{label}</div>
       </div>
-    </div>
+</div>
   )
 }

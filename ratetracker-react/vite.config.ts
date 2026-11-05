@@ -6,6 +6,7 @@ import autoprefixer from 'autoprefixer'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/ratetrackernew/',
   plugins: [react()],
   resolve: {
     alias: {

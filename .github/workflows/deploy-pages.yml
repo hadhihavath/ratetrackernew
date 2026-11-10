@@ -15,7 +15,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  build-and-deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -24,28 +24,34 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: 'ratetracker-react/package-lock.json'
+
+      - name: Install dependencies
+        run: |
+          cd ratetracker-react
+          npm ci
+
+      - name: Build React 3D Application
+        env:
+          VITE_BASE_PATH: '/ratetrackernew/'
+          VITE_CUELINKS_CID: '82192'
+          VITE_CUELINKS_API_KEY: 'oQab8xOk401MwoV5ofoIevFvlP_zu-WR_EarndNqpXk'
+        run: |
+          cd ratetracker-react
+          npm run build
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
-          # Exclude backend files and config that aren't needed for static hosting
-          excluded-files: |
-            .github/
-            .gitignore
-            package.json
-            package-lock.json
-            server.js
-            vercel.json
-            .env.example
-            api/
-            lib/
-            supabase/
-            cuelinks_offers.json
-            run-local.ps1
-            README.md
+          path: 'ratetracker-react/dist'
 
       - name: Deploy to GitHub Pages
         id: deployment

@@ -3,9 +3,9 @@
  * Architecture Component: Backend (Node.js) & Hosting (Vercel / Local)
  * 
  * Supports:
- * 1. Serving static frontend assets (HTML, CSS, JavaScript)
+ * 1. Serving React 3D production application (ratetracker-react/dist) with vanilla fallback
  * 2. Mounting Vercel-compatible /api/* serverless endpoints
- * 3. Graceful handling without external dependencies
+ * 3. Zero-dependency fallback operation
  */
 
 const http = require('http');
@@ -17,11 +17,12 @@ const url = require('url');
 try {
   require('dotenv').config();
 } catch (e) {
-  // Dotenv optional in zero-dependency mode
+  // Dotenv optional
 }
 
 const PORT = process.env.PORT || 3000;
-const PUBLIC_DIR = __dirname;
+const REACT_DIST_DIR = path.join(__dirname, 'ratetracker-react', 'dist');
+const VANILLA_DIR = __dirname;
 
 // MIME types dictionary for static frontend
 const MIME_TYPES = {
@@ -34,7 +35,11 @@ const MIME_TYPES = {
   '.jpg': 'image/jpeg',
   '.jpeg': 'image/jpeg',
   '.ico': 'image/x-icon',
-  '.webp': 'image/webp'
+  '.webp': 'image/webp',
+  '.woff': 'font/woff',
+  '.woff2': 'font/woff2',
+  '.ttf': 'font/ttf',
+  '.webmanifest': 'application/manifest+json'
 };
 
 // Route handlers for /api
@@ -43,7 +48,8 @@ const apiRoutes = {
   '/api/cuelinks': require('./api/cuelinks'),
   '/api/feeds': require('./api/feeds'),
   '/api/alerts': require('./api/alerts'),
-  '/api/health': require('./api/health')
+  '/api/health': require('./api/health'),
+  '/api/hotels': require('./api/hotels')
 };
 
 /**
@@ -96,21 +102,33 @@ const server = http.createServer((req, res) => {
     }
   }
 
-  // 2. Serve static frontend files (HTML, CSS, JavaScript)
+  // 2. Determine frontend static directory (React build if dist exists, else Vanilla)
+  const hasReactBuild = fs.existsSync(REACT_DIST_DIR);
+  const activeStaticDir = hasReactBuild ? REACT_DIST_DIR : VANILLA_DIR;
+
   let safePath = path.normalize(pathname).replace(/^(\.\.[\/\\])+/, '');
   if (safePath === '/' || safePath === '\\') safePath = '/index.html';
 
-  const filePath = path.join(PUBLIC_DIR, safePath);
+  const filePath = path.join(activeStaticDir, safePath);
   const ext = path.extname(filePath).toLowerCase();
 
   fs.stat(filePath, (err, stats) => {
     if (err || !stats.isFile()) {
-      // Fallback to index.html for SPA-style client routing
-      const indexPath = path.join(PUBLIC_DIR, 'index.html');
+      // Fallback to index.html for SPA client routing
+      const indexPath = path.join(activeStaticDir, 'index.html');
       fs.readFile(indexPath, (readErr, content) => {
         if (readErr) {
-          res.writeHead(404, { 'Content-Type': 'text/plain' });
-          return res.end('404 Not Found');
+          // If React dist has no index, try vanilla
+          const vanillaIndex = path.join(VANILLA_DIR, 'index.html');
+          fs.readFile(vanillaIndex, (vErr, vContent) => {
+            if (vErr) {
+              res.writeHead(404, { 'Content-Type': 'text/plain' });
+              return res.end('404 Not Found');
+            }
+            res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+            res.end(vContent);
+          });
+          return;
         }
         res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
         res.end(content);
@@ -125,24 +143,22 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(PORT, () => {
+  const hasReact = fs.existsSync(REACT_DIST_DIR);
   console.log(`
   ==============================================================
   🚀 RateTracker.in (ratetracker.in) Production Server Running
   ==============================================================
-  • Component: Frontend             -> HTML, CSS, JavaScript
-  • Component: Backend              -> Node.js (Active on port ${PORT})
-  • Component: Database             -> Supabase / PostgreSQL
-  • Component: Affiliate Integr.    -> Cuelinks API (Publisher CID: 82192)
-  • Component: Product Information  -> Approved merchant APIs and feeds
-  • Component: Hosting              -> Vercel & Node.js Native
+  • Primary UI:        ${hasReact ? 'Modern React 19 + 3D App (ratetracker-react/dist)' : 'Vanilla JS / CSS3 App (Root)'}
+  • Node.js Backend:   Active on port ${PORT}
+  • Affiliate:         Cuelinks API (Publisher CID: 82192)
+  • Endpoints Active:  /api/products, /api/cuelinks, /api/hotels, /api/feeds, /api/alerts, /api/health
   ==============================================================
-  🔗 Local URL:    http://localhost:${PORT}
-  🔗 API Health:   http://localhost:${PORT}/api/health
-  🔗 Products API: http://localhost:${PORT}/api/products
-  🔗 Cuelinks API: http://localhost:${PORT}/api/cuelinks?action=status
+  🔗 Application URL:  http://localhost:${PORT}
+  🔗 Products API:     http://localhost:${PORT}/api/products
+  🔗 Hotels API:       http://localhost:${PORT}/api/hotels
+  🔗 Cuelinks Status:  http://localhost:${PORT}/api/cuelinks?action=status
   ==============================================================
   `);
 });
 
 module.exports = server;
-

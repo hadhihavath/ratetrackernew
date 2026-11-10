@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
-import { productsApi } from '@/api'
+import { hotelsApi } from '@/api'
 import { HotelCard } from '@/components/hotel'
+import type { Hotel } from '@/types'
 import { ArrowLeft, Calendar, Users, Search, MapPin } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { GlassCard, GlassContainer, GlassButton, GlassInput } from '@/components/three-d'
@@ -14,7 +15,7 @@ const POPULAR_DESTINATIONS = [
   { name: 'Munnar', image: 'https://images.unsplash.com/photo-1602216056099-6a0e0f2d5b0b?w=300&auto=format&fit=crop&q=80', count: '60+ hotels' },
 ]
 
-const SORT_OPTIONS = ['Recommended', 'Price: Low to High', 'Price: High to Low', 'Rating', 'Distance']
+const SORT_OPTIONS = ['Recommended', 'Price: Low to High', 'Price: High to Low', 'Rating']
 
 export function Hotels() {
   const navigate = useNavigate()
@@ -25,6 +26,11 @@ export function Hotels() {
   const [activeSort, setActiveSort] = useState('Recommended')
 
   const goBack = () => navigate('/')
+
+  const { data: hotelsData, isLoading } = useQuery({
+    queryKey: ['hotels', destination],
+    queryFn: () => hotelsApi.getHotels(destination),
+  })
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
@@ -39,32 +45,16 @@ export function Hotels() {
     setActiveSort(sort)
   }
 
-  const { data: hotelsData, isLoading } = useQuery({
-    queryKey: ['hotels'],
-    queryFn: () => productsApi.getProducts({ category: 'hotels' }),
-  })
+  let hotels: Hotel[] = hotelsData?.hotels || []
 
-  // Transform Product to Hotel format for HotelCard
-  const hotels = hotelsData?.products?.map((product: any) => ({
-    id: product.id,
-    name: product.title,
-    city: product.category,
-    location: product.category,
-    rating: product.rating,
-    reviewsCount: product.reviewsCount,
-    lowestPrice: product.bestPrice,
-    originalPrice: product.originalPrice,
-    discountPercent: product.discountPercent,
-    tag: product.badge || 'Popular',
-    image: product.colors?.[0]?.img || 'https://via.placeholder.com/300',
-    amenities: [],
-    rates: product.stores?.map((store: any) => ({
-      ota: store.name,
-      price: store.price,
-      isLowest: store.isBestDeal,
-      directUrl: store.directUrl || '#',
-    })) || [],
-  })) || []
+  // Apply sorting
+  if (activeSort === 'Price: Low to High') {
+    hotels = [...hotels].sort((a, b) => a.lowestPrice - b.lowestPrice)
+  } else if (activeSort === 'Price: High to Low') {
+    hotels = [...hotels].sort((a, b) => b.lowestPrice - a.lowestPrice)
+  } else if (activeSort === 'Rating') {
+    hotels = [...hotels].sort((a, b) => b.rating - a.rating)
+  }
 
   return (
     <section className="app-screen-view min-h-screen" id="view-hotels">
@@ -77,7 +67,7 @@ export function Hotels() {
             </button>
             <h2 className="view-header-title text-xl font-extrabold text-text-main flex items-center gap-2">
               <MapPin className="w-5 h-5 text-primary" />
-              Hotels
+              Hotels Price Comparison
             </h2>
           </div>
         </GlassContainer>
@@ -91,7 +81,7 @@ export function Hotels() {
             <GlassInput
               value={destination}
               onChange={(e) => setDestination(e.target.value)}
-              placeholder="Where are you going?"
+              placeholder="Where are you going? (e.g. Goa, Manali, Jaipur)"
               iconLeft={<MapPin className="w-5 h-5" />}
               className="bg-white/10 dark:bg-slate-800/30 border-white/20 dark:border-slate-700/30 focus:border-primary/50 focus:ring-primary/50"
             />
@@ -149,7 +139,7 @@ export function Hotels() {
                 fullWidth
                 iconLeft={<Search className="w-5 h-5" />}
               >
-                Search Hotels
+                Search Hotels & Compare OTAs
               </GlassButton>
             </div>
           </div>
@@ -163,6 +153,14 @@ export function Hotels() {
             <MapPin className="w-5 h-5 text-primary" />
             Popular Destinations
           </h3>
+          {destination && (
+            <button
+              onClick={() => setDestination('')}
+              className="text-xs font-bold text-primary hover:underline"
+            >
+              Clear Filter
+            </button>
+          )}
         </div>
       </GlassContainer>
 
@@ -216,7 +214,7 @@ export function Hotels() {
       </div>
 
       {/* Hotels List with Glass Cards */}
-      <div id="hotels-list-container" className="px-4 py-4 space-y-3 pb-20">
+      <div id="hotels-list-container" className="px-4 py-4 space-y-4 pb-20">
         {isLoading ? (
           <div className="space-y-4">
             {[1, 2, 3].map((i) => (
@@ -241,9 +239,9 @@ export function Hotels() {
         ) : (
           <GlassContainer className="text-center py-12 mx-4" padding="xl" rounded="2xl">
             <div className="text-4xl mb-3">🏨</div>
-            <p className="font-bold text-lg text-text-main mb-2">No hotels available</p>
-            <p className="text-sm text-text-muted mb-4">Check back later or search for a destination</p>
-            <GlassButton variant="outline" onClick={() => setDestination('Goa')}>Explore Goa</GlassButton>
+            <p className="font-bold text-lg text-text-main mb-2">No hotels found matching "{destination}"</p>
+            <p className="text-sm text-text-muted mb-4">Try exploring Goa or clear the destination search</p>
+            <GlassButton variant="outline" onClick={() => setDestination('')}>Show All Hotels</GlassButton>
           </GlassContainer>
         )}
       </div>

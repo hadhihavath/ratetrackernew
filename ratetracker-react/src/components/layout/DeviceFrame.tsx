@@ -22,13 +22,13 @@ export function DeviceFrame({ children }: DeviceFrameProps) {
 
   return (
     <div className="relative min-h-screen">
-      {/* Desktop Controls Bar - only visible in desktop mode */}
-      {deviceMode === 'desktop' && <DesktopControlsBar />}
+      {/* Desktop Controls Bar - always visible on desktop viewport */}
+      <DesktopControlsBar />
 
       {/* Main Viewport */}
       <main className="app-viewport-wrapper">
-        <div className="device-frame" id="app-frame">
-          {/* Mobile Status Bar / Notch - only visible in mobile mode */}
+        <div className={`device-frame ${deviceMode === 'mobile' ? 'device-mobile-frame' : 'device-desktop-frame'}`} id="app-frame">
+          {/* Mobile Status Bar / Notch - visible in mobile mode */}
           {deviceMode === 'mobile' && (
             <div className="status-bar-notch">
               <span className="status-time">9:41</span>
@@ -61,8 +61,8 @@ export function DeviceFrame({ children }: DeviceFrameProps) {
               {children}
             </div>
 
-            {/* Bottom Navigation - only visible in mobile mode */}
-            {deviceMode === 'mobile' && <BottomNav />}
+            {/* Bottom Navigation */}
+            <BottomNav />
           </div>
         </div>
       </main>

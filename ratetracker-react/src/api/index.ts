@@ -4,3 +4,4 @@ export * from './cuelinks';
 export * from './feeds';
 export * from './alerts';
 export * from './health';
+export * from './hotels';

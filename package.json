@@ -6,7 +6,10 @@
   "type": "commonjs",
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "build": "npm --prefix ratetracker-react run build",
+    "build:all": "npm --prefix ratetracker-react install && npm --prefix ratetracker-react run build",
+    "dev:react": "npm --prefix ratetracker-react run dev"
   },
   "keywords": [
     "price-comparison",
